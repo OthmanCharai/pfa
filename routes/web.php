@@ -14,11 +14,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('influencers.profile.plans');
 });
 
-Route::prefix('influencers')->group(function(){
+Route::prefix('influencers')->name('influencers.')->group(function(){
     Route::get('dashbord',function(){
         return view('influencers.dashbord');
     })->name('dashbord');
+    Route::prefix('profile')->name('profile.')->group(function(){
+            Route::get('account',function(){
+                return view('influencers.profile.account');
+            })->name('account');
+            Route::get('security',function(){
+                return view('influencers.profile.security');
+            })->name('security');
+            Route::get('plans',function(){
+                return view('influencers.profile.plans');
+            })->name('plans');
+
+        }
+    );
 });

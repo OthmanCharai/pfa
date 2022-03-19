@@ -13,7 +13,7 @@ $(function () {
   // --------------------------------------------------------------------
   if (dt_project_table.length) {
     var dt_project = dt_project_table.DataTable({
-      ajax: assetsPath + 'json/projects-list.json', // JSON file to add data
+      ajax: '/json/projects-list.json', // JSON file to add data
       columns: [
         // columns according to JSON
         { data: '' },
@@ -45,8 +45,8 @@ $(function () {
               // For Avatar image
               var $output =
                 '<img src="' +
-                assetsPath +
-                'img/icons/brands/' +
+
+                '/img/icons/brands/' +
                 $image +
                 '" alt="Project Image" class="rounded-circle">';
             } else {

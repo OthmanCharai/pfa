@@ -16,25 +16,12 @@
     rel="stylesheet">
 
   <!-- Icons. Uncomment required icon fonts -->
-  <link rel="stylesheet" href="{{ asset('/vendor/fonts/boxicons.css')}}" />
-  <!-- <link rel="stylesheet" href="{{ asset('/vendor/fonts/fontawesome.css')}}" /> -->
+   <link rel="stylesheet" href="{{ asset('/vendor/fonts/boxicons.css')}}" /> 
+  <link rel="stylesheet" href="{{ asset('/vendor/fonts/fontawesome.css')}}" />
 
-  <!-- Core CSS -->
-  <link rel="stylesheet" href="{{ asset('/vendor/css/core.css')}}" class="template-customizer-core-css" />
-  <link rel="stylesheet" href="{{ asset('/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
-  <link rel="stylesheet" href="{{ asset('/css/demo.css')}}" />
+
   @yield('afterCss')
-  <!-- Vendors CSS -->
-  <link rel="stylesheet" href="{{ asset('/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
-  <!-- Helpers -->
-  <script src="{{ asset('/vendor/js/helpers.js')}}"></script>
-
-  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-  <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-  {{-- <script src="{{ asset('/vendor/js/template-customizer.js')}}"></script> --}}
-  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-  <script src="{{ asset('/js/config.js')}}"></script>
 
 </head>
 
@@ -194,16 +181,16 @@
                 <div class="container-xxl d-flex h-100">
                   <ul class="menu-inner py-1">
                     <!-- Page -->
-                    <li class="menu-item active">
-                      <a href="{{route('dashbord')}}" class="menu-link">
+                    <li class="menu-item {{ request()->is('influencers/dashbord') ? 'active' : '' }}">
+                      <a href="{{route('influencers.dashbord')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                        <div data-i18n="Page1">Dashbord</div>
+                        <div >Dashbord</div>
                       </a>
                     </li>
-                    <li class="menu-item">
-                      <a href="" class="menu-link">
+                    <li class="menu-item  {{ request()->is('influencers/profile/*') ? 'active' : '' }}">
+                      <a href="{{route('influencers.profile.account')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-user-circle"></i>
-                        <div data-i18n="Page2">Profile</div>
+                        <div >Profile</div>
                       </a>
                     </li>
                   </ul>
@@ -244,17 +231,18 @@
 
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->
-  <script src="{{ asset('/vendor/libs/jquery/jquery.js')}}"></script>
+  {{-- <script src="{{ asset('/vendor/libs/jquery/jquery.js')}}"></script>
   <script src="{{ asset('/vendor/libs/popper/popper.js')}}"></script>
   <script src="{{ asset('/vendor/js/bootstrap.js')}}"></script>
-  {{-- <script src="{{ asset('/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script> --}}
+  <script src="{{ asset('/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
   <script src="{{ asset('/vendor/libs/hammer/hammer.js')}}"></script>
-  {{-- <script src="{{ asset('/vendor/js/menu.js')}}"></script> --}}
+  <script src="{{ asset('/vendor/js/menu.js')}}"></script> --}}
   <!-- endbuild -->
 
+  @yield('coreJs')
   <!-- Main JS -->
-  <script src="{{ asset('/js/main.js')}}"></script>
-  @yield('afterJs')
+  {{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
+  {{-- <script src="{{ asset('/js/main.js')}}"  type="text/javascript"></script> --}}
 </body>
 
 </html>
