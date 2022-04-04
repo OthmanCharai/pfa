@@ -31,7 +31,8 @@
 
 @endsection
 @section('coreJs')
-
+    {{-- <script async defer src="http://127.0.0.1:8000.twic.pics/?v1"></script> --}}
+    {{-- <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.lang.en.min.js"></script> --}}
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{asset('vendor/libs/jquery/jquery.js')}}"></script>
@@ -137,7 +138,7 @@
               <p class="mb-2">Project meeting with john @10:15am</p>
               <div class="d-flex flex-wrap">
                 <div class="avatar me-3">
-                  <img src="{{asset('img/avatars/3.png')}}" alt="Avatar" class="rounded-circle" />
+                  <img data-twic-src="{{asset('img/avatars/3.png')}}" alt="Avatar" class="rounded-circle" />
                 </div>
                 <div>
                   <h6 class="mb-0">Lester McCarthy (Client)</h6>

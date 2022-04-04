@@ -16,7 +16,7 @@
     rel="stylesheet">
 
   <!-- Icons. Uncomment required icon fonts -->
-   <link rel="stylesheet" href="{{ asset('/vendor/fonts/boxicons.css')}}" /> 
+   <link rel="stylesheet" href="{{ asset('/vendor/fonts/boxicons.css')}}" />
   <link rel="stylesheet" href="{{ asset('/vendor/fonts/fontawesome.css')}}" />
 
 
@@ -193,6 +193,13 @@
                         <div >Profile</div>
                       </a>
                     </li>
+
+                    <li class="menu-item ">
+                        <a href="{{route('influencers.products')}}" class="menu-link">
+                          <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                          <div >Products</div>
+                        </a>
+                      </li>
                   </ul>
                 </div>
               </aside>

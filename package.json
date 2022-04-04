@@ -16,6 +16,7 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
+        "@twicpics/components": "^0.6.2",
         "bootstrap": "^5.1.3"
     }
 }
