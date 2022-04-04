@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('guest.home');
+    return view('entreprise.dashboard');
 });
 
 Route::prefix('guest')->name('guest.')->group(function () {
@@ -54,6 +54,33 @@ Route::prefix('influencers')->name('influencers.')->group(function(){
             Route::get('plans',function(){
                 return view('influencers.profile.plans');
             })->name('plans');
+
+        }
+    );
+});
+/**
+ *  entreprise route
+ */
+Route::prefix('entreprises')->name('entreprises.')->group(function(){
+    Route::get('dashbord',function(){
+        return view('entreprise.dashboard');
+    })->name('dashbord');
+    Route::prefix('profile')->name('profile.')->group(function(){
+        Route::get('account',function(){
+            return view('entreprise.profile.account');
+        })->name('account');
+        Route::get('security',function(){
+            return view('entreprise.profile.security');
+        })->name('security');
+        Route::get('products',function(){
+            return view('entreprise.profile.products');
+        })->name('products');
+
+        Route::get('applied_products',function(){
+            return view('entreprise.profile.applied_products');
+        })->name('applied_products');
+
+
 
         }
     );
