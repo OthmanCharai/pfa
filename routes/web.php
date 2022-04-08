@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('entreprise.dashboard');
+    return view('guest.home');
 });
 
 Route::prefix('guest')->name('guest.')->group(function () {
@@ -85,3 +86,7 @@ Route::prefix('entreprises')->name('entreprises.')->group(function(){
         }
     );
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
