@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,6 +31,16 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    // public function redirectTo() {
+    //     $role = Auth::user()->role;
+    //     // dd($role);
+    //     $id = Auth::user()->id;
+    //     if($role=="influencer"){
+    //         return "influencers/profile/plans";
+    //     }else{
+    //         return '/entreprises/profile/account';
+    //     }
+    //   }
 
     /**
      * Create a new controller instance.
@@ -53,6 +64,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'string'],
         ]);
     }
 
@@ -68,7 +80,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => 'influencer'
+            'role' => $data['role']
         ]);
     }
 }

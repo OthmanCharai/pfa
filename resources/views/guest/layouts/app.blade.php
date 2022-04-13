@@ -16,8 +16,8 @@
     rel="stylesheet">
 
   <!-- Icons. Uncomment required icon fonts -->
-   <link rel="stylesheet" href="{{ asset('/vendor/fonts/boxicons.css')}}" />
-  <link rel="stylesheet" href="{{ asset('/vendor/fonts/fontawesome.css')}}" />
+   <link rel="stylesheet" href="{{ asset('temp2/vendor/fonts/boxicons.css')}}" />
+  <link rel="stylesheet" href="{{ asset('temp2/vendor/fonts/fontawesome.css')}}" />
 
 
   @yield('afterCss')
@@ -179,15 +179,16 @@
                             </ul>
                             <div class="tab-content" id="tab-content-5">
                                 <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                    <form action="#">
+                                    <form action="{{route('login')}}" method="POST">
+                                        @csrf
                                         <div class="form-group">
-                                            <label for="singin-email">Username or email address *</label>
-                                            <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                            <label for="singin-email">email address *</label>
+                                            <input type="text" class="form-control" id="singin-email" name="email" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
                                             <label for="singin-password">Password *</label>
-                                            <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                            <input type="password" class="form-control" id="singin-password" name="password" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-footer">
@@ -223,17 +224,35 @@
                                     </div><!-- End .form-choice -->
                                 </div><!-- .End .tab-pane -->
                                 <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                    <form action="#">
+                                    <form action="{{route('register')}}" method="POST">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="register-name">Your Name *</label>
+                                            <input type="text" class="form-control" id="register-name" name="name" value="{{ old('name') }}" required>
+                                        </div><!-- End .form-group -->
                                         <div class="form-group">
                                             <label for="register-email">Your email address *</label>
-                                            <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                            <input type="email" class="form-control" id="register-email" name="email" value="{{ old('email') }}" required>
                                         </div><!-- End .form-group -->
-
                                         <div class="form-group">
-                                            <label for="register-password">Password *</label>
-                                            <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                            <label >Role *</label><br>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="role" id="influencer" value="influencer">
+                                                <label class="form-check-label" for="influencer">Influencer</label>
+                                              </div>
+                                              <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="role" id="entreprise" value="entreprise">
+                                                <label class="form-check-label" for="entreprise">Entreprise</label>
+                                              </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="register-password">Your Password *</label>
+                                            <input type="password" class="form-control" id="register-password" name="password" required>
                                         </div><!-- End .form-group -->
-
+                                        <div class="form-group">
+                                            <label for="register-password-confirm"> Confirm Your Password *</label>
+                                            <input type="password" class="form-control" id="register-password-confirm" name="password_confirmation" required>
+                                        </div><!-- End .form-group -->
                                         <div class="form-footer">
                                             <button type="submit" class="btn btn-outline-primary-2">
                                                 <span>SIGN UP</span>

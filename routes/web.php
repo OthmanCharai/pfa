@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('guest.home');
+    return view('home');
 });
 
 Route::prefix('guest')->name('guest.')->group(function () {
@@ -90,3 +90,8 @@ Route::prefix('entreprises')->name('entreprises.')->group(function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/pricing',function(){
+    return view('influencers.pack');
+});
+Route::post('storePlan',[App\Http\Controllers\HomeController::class, 'storePlan'])->name('storePlan');
+Route::post('storeCard',[App\Http\Controllers\HomeController::class, 'storeCard'])->name('storeCard');

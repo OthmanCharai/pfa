@@ -28,54 +28,7 @@
 <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
-        <header class="header">
-
-
-            <div class="header-middle sticky-header">
-                <div class="container">
-                    <div class="header-left">
-                        <button class="mobile-menu-toggler">
-                            <span class="sr-only">Toggle mobile menu</span>
-                            <i class="icon-bars"></i>
-                        </button>
-
-                        <a href="" class="logo">
-                            <img src="{{asset('products/images/logo.png')}}" alt="Molla Logo" width="105" height="25">
-                        </a>
-
-                        <nav class="main-nav">
-                            <ul class="menu ">
-                                <li class="megamenu-container active">
-                                    <a href="" >Home</a>
-
-                                </li>
-                                <li class="megamenu-container ">
-                                    <a href="" >About</a>
-
-                                </li>
-                                <li class="megamenu-container ">
-                                    <a href="" >Contact</a>
-                                </li>
-                                <li class="megamenu-container ">
-                                    <a href="" >Faqs</a>
-                                </li>
-                            </ul>
-
-                        </nav><!-- End .main-nav -->
-                    </div><!-- End .header-left -->
-
-                    <div class="header-right">
-                        <ul class="menu ">
-                            <li class="megamenu-container ">
-
-                                <a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a>
-                            </li>
-                        </ul>
-
-                    </div><!-- End .header-right -->
-                </div><!-- End .container -->
-            </div><!-- End .header-middle -->
-        </header><!-- End .header -->
+        
         <div class="layout-container">
 
 
