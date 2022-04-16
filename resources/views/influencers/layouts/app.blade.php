@@ -110,7 +110,7 @@
                   <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                       <div class="avatar avatar-online">
-                        <img src="{{asset('/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="{{asset('storage/'.auth()->user()->avatar)}}" alt class="w-px-40 h-auto rounded-circle" />
                       </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -197,12 +197,12 @@
                       </a>
                     </li>
 
-                    <li class="menu-item ">
+                    {{-- <li class="menu-item ">
                         <a href="{{route('influencers.products')}}" class="menu-link">
                           <i class="menu-icon tf-icons bx bx-user-circle"></i>
                           <div >Products</div>
                         </a>
-                      </li>
+                      </li> --}}
                   </ul>
                 </div>
               </aside>

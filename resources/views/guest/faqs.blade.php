@@ -32,7 +32,7 @@
 @endsection
 @section('content')
 <main class="main">
-    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+    <div class="page-header text-center" style="background-image: url({{asset('temp2/images/page-header-bg.jpg')}})">
         <div class="container">
             <h1 class="page-title">F.A.Q<span>Pages</span></h1>
         </div><!-- End .container -->
@@ -48,7 +48,7 @@
     </nav><!-- End .breadcrumb-nav -->
 
     <div class="page-content">
-        <div class="container">
+        {{-- <div class="container">
             <h2 class="title text-center mb-3">Shipping Information</h2><!-- End .title -->
             <div class="accordion accordion-rounded" id="accordion-1">
                 <div class="card card-box card-sm bg-light">
@@ -110,7 +110,7 @@
                         </div><!-- End .card-body -->
                     </div><!-- End .collapse -->
                 </div><!-- End .card -->
-            </div><!-- End .accordion -->
+            </div><!-- End .accordion --> --}}
 
             <h2 class="title text-center mb-3">Orders and Returns</h2><!-- End .title -->
             <div class="accordion accordion-rounded" id="accordion-2">
@@ -124,7 +124,7 @@
                     </div><!-- End .card-header -->
                     <div id="collapse2-1" class="collapse" aria-labelledby="heading2-1" data-parent="#accordion-2">
                         <div class="card-body">
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.
+                            If you have an account just sign into your account and select "My orders".
                         </div><!-- End .card-body -->
                     </div><!-- End .collapse -->
                 </div><!-- End .card -->
@@ -133,13 +133,13 @@
                     <div class="card-header" id="heading2-2">
                         <h2 class="card-title">
                             <a class="collapsed" role="button" data-toggle="collapse" href="#collapse2-2" aria-expanded="false" aria-controls="collapse2-2">
-                                I haven’t received my order
+                                I haven’t received my product
                             </a>
                         </h2>
                     </div><!-- End .card-header -->
                     <div id="collapse2-2" class="collapse" aria-labelledby="heading2-2" data-parent="#accordion-2">
                         <div class="card-body">
-                            Ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.
+                            If you didn't receive and product, you have to contact our support team. All technical issues can be handled by our team.
                         </div><!-- End .card-body -->
                     </div><!-- End .collapse -->
                 </div><!-- End .card -->
@@ -148,13 +148,13 @@
                     <div class="card-header" id="heading2-3">
                         <h2 class="card-title">
                             <a class="collapsed" role="button" data-toggle="collapse" href="#collapse2-3" aria-expanded="false" aria-controls="collapse2-3">
-                                How can I return an item?
+                                How can I cancel a product?
                             </a>
                         </h2>
                     </div><!-- End .card-header -->
                     <div id="collapse2-3" class="collapse" aria-labelledby="heading2-3" data-parent="#accordion-2">
                         <div class="card-body">
-                            Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.
+                            You can cancel your product within 3 days after your apply for the product for full refund.
                         </div><!-- End .card-body -->
                     </div><!-- End .collapse -->
                 </div><!-- End .card -->
@@ -225,7 +225,7 @@
         </div><!-- End .container -->
     </div><!-- End .page-content -->
 
-    <div class="cta cta-display bg-image pt-4 pb-4" style="background-image: url(assets/images/backgrounds/cta/bg-7.jpg);">
+    <div class="cta cta-display bg-image pt-4 pb-4" style="background-image: url({{asset('temp2/images/backgrounds/cta/bg-7.jpg')}});">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-9 col-xl-7">

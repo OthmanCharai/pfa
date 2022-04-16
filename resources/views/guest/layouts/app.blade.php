@@ -69,10 +69,25 @@
 
                     <div class="header-right">
                         <ul class="menu ">
-                            <li class="megamenu-container ">
+                            @guest
 
-                                <a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a>
+                                <li class="megamenu-container ">
+
+                                    <a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a>
+                                </li>
+                            @endguest
+                            @auth
+                            <li class="megamenu-container ">
+                                <a href="{{(auth()->user()->role=="influencer")?route('influencers.profile.account'):route('entreprises.profile.account')}}">
+
+                                    <i class="icon-home"></i>Profile</a>
                             </li>
+                            <li class="megamenu-container ">
+                                <a href="{{route('logout')}}">
+
+                                    <i class="icon-long-arrow-right"></i>Logout</a>
+                            </li>
+                            @endauth
                         </ul>
 
                     </div><!-- End .header-right -->

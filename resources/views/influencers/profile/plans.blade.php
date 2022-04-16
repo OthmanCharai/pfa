@@ -42,9 +42,9 @@
     <script src="{{asset('vendor/libs/cleavejs/cleave.js')}}"></script>
     <script src="{{asset('vendor/libs/cleavejs/cleave-phone.js')}}"></script>
     <script src="{{asset('vendor/libs/select2/select2.js')}}"></script>
-    <script src="{{asset('vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
+    {{-- <script src="{{asset('vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
     <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js')}}"></script>
-    <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
+    <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script> --}}
 
     <!-- Main JS -->
     <script src="{{asset('js/main.js')}}"></script>
@@ -65,41 +65,41 @@
                       <div class="row">
                         <div class="col-xl-6 order-1 order-xl-0">
                           <div class="mb-4">
-                            <h6 class="mb-1">Your Current Plan is Basic</h6>
+                            <h6 class="mb-1">Your Current Plan is {{auth()->user()->pack->plan}}</h6>
                             <p>A simple start for everyone</p>
                           </div>
                           <div class="mb-4">
                             <h6 class="mb-1">Active until Dec 09, 2021</h6>
-                            <p>We will send you a notification upon Subscription expiration</p>
+                            <p>We will send you a notification for next payement</p>
                           </div>
                           <div class="mb-4">
                             <h6 class="mb-1">
-                              <span class="me-2">$199 Per Month</span>
+                              <span class="me-2">${{auth()->user()->pack->prix}} Per Month</span>
                               <span class="badge bg-label-primary">Popular</span>
                             </h6>
-                            <p>Standard plan for small to medium businesses</p>
+                            {{-- <p>Standard plan for small to medium businesses</p> --}}
                           </div>
                         </div>
                         <div class="col-xl-6 order-0 order-xl-0">
-                          <div class="alert alert-warning mb-4" role="alert">
+                          {{-- <div class="alert alert-warning mb-4" role="alert">
                             <h6 class="alert-heading fw-bold mb-1">We need your attention!</h6>
-                            <span>Your plan requires update</span>
-                          </div>
+                            <span>Your plan requires payement</span>
+                          </div> --}}
                           <div class="plan-statistics">
                             <div class="d-flex justify-content-between">
                               <h6 class="mb-2">Days</h6>
-                              <h6 class="mb-2">24 of 30 Days</h6>
+                              <h6 class="mb-2">{{date('d',strtotime(now())-strtotime(auth()->user()->pack->payement_date))}} of 30 Days</h6>
                             </div>
-                            <div class="progress mb-1">
+                            {{-- <div class="progress mb-1">
                               <div
                                 class="progress-bar w-75"
                                 role="progressbar"
-                                aria-valuenow="75"
+                                aria-valuenow=""
                                 aria-valuemin="0"
                                 aria-valuemax="100"
                               ></div>
-                            </div>
-                            <p>6 days remaining until your plan requires update</p>
+                            </div> --}}
+                            <p>{{ (30 - date('d',strtotime(now())-strtotime(auth()->user()->pack->payement_date)))%30}} days remaining until your plan requires payement</p>
                           </div>
                         </div>
                         <div class="col-12 order-2 order-xl-0">
@@ -110,7 +110,7 @@
                           >
                             Upgrade Plan
                           </button>
-                          <button class="btn btn-label-danger cancel-subscription">Cancel Subscription</button>
+                          {{-- <button class="btn btn-label-danger cancel-subscription">Cancel Subscription</button> --}}
                         </div>
                       </div>
                     </div>
@@ -134,103 +134,49 @@
                     </div>
                     <div class="card-body">
                       <div class="added-cards">
+
+                          @foreach (auth()->user()->cards as $card)
                         <div class="cardMaster border rounded p-3 mb-3">
                           <div class="d-flex flex-column flex-sm-row justify-content-between">
                             <div class="card-information">
-                              <img
-                                class="img-fluid mb-3"
-                                src="{{asset('/img/icons/payments/mastercard.png')}}"
-                                alt="Master Card"
-                              />
-                              <h6 class="mb-1">Kaith Morrison</h6>
+                                <div class="d-flex align-items-center mb-1">
+                                  <h6 class="me-3 mb-0">{{$card->name}}</h6>
+                                  @if($card->is_primary)
+                                  <span class="badge bg-label-primary me-1">Primary</span>
+                                  @endif
+                                </div>
                               <span class="card-number"
                                 >&#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727;
-                                9856</span
+                                {{substr($card->card_number,-4)}}</span
                               >
                             </div>
                             <div class="d-flex flex-column text-start text-lg-end">
                               <div class="d-flex order-1 order-sm-0">
-                                <button
+                                {{-- <button
                                   class="btn btn-label-primary me-3"
                                   data-bs-toggle="modal"
                                   data-bs-target="#editCCModal"
                                 >
                                   Edit
-                                </button>
-                                <button class="btn btn-label-secondary">Delete</button>
+                              </button> --}}
+                                <form action="{{route('deleteCard',$card->id)}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="submit" value="Delete" class="btn btn-label-secondary">
+                                </form>
                               </div>
-                              <small class="order-0 order-sm-1 mt-2 mt-sm-auto">Card expires at 12/26</small>
+                              <small class="order-0 order-sm-1 mt-2 mt-sm-auto">Card expires at {{$card->exp_date}}</small>
                             </div>
                           </div>
                         </div>
-                        <div class="cardMaster border rounded p-3 mb-3">
-                          <div class="d-flex flex-column flex-sm-row justify-content-between">
-                            <div class="card-information">
-                              <img
-                                class="img-fluid mb-3"
-                                src="{{asset('/img/icons/payments/visa.png')}}"
-                                alt="Master Card"
-                              />
-                              <div class="d-flex align-items-center mb-1">
-                                <h6 class="me-3 mb-0">Tom McBride</h6>
-                                <span class="badge bg-label-primary me-1">Primary</span>
-                              </div>
-                              <span class="card-number"
-                                >&#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727;
-                                6542</span
-                              >
-                            </div>
-                            <div class="d-flex flex-column text-start text-lg-end">
-                              <div class="d-flex order-1 order-sm-0">
-                                <button
-                                  class="btn btn-label-primary me-3"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#editCCModal"
-                                >
-                                  Edit
-                                </button>
-                                <button class="btn btn-label-secondary">Delete</button>
-                              </div>
-                              <small class="order-0 order-sm-1 mt-2 mt-sm-auto">Card expires at 10/24</small>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="cardMaster border rounded p-3">
-                          <div class="d-flex flex-column flex-sm-row justify-content-between">
-                            <div class="card-information">
-                              <img
-                                class="img-fluid mb-3"
-                                src="{{asset('/img/icons/payments/american-ex.png')}}"
-                                alt="Visa Card"
-                              />
-                              <h6 class="mb-1">Mildred Wagner</h6>
-                              <span class="card-number"
-                                >&#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727;
-                                5896</span
-                              >
-                            </div>
-                            <div class="d-flex flex-column text-start text-lg-end">
-                              <div class="d-flex order-1 order-sm-0">
-                                <button
-                                  class="btn btn-label-primary me-3"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#editCCModal"
-                                >
-                                  Edit
-                                </button>
-                                <button class="btn btn-label-secondary">Delete</button>
-                              </div>
-                              <small class="order-0 order-sm-1 mt-2 mt-sm-auto">Card expires at 10/27</small>
-                            </div>
-                          </div>
-                        </div>
+                        @endforeach
                       </div>
                     </div>
                   </div>
                   <!--/ Payment Methods -->
 
                   <!-- Billing Address -->
-                  <div class="card card-action mb-4">
+                  {{-- <div class="card card-action mb-4">
                     <div class="card-header align-items-center">
                       <h5 class="card-action-title mb-0">Billing Address</h5>
                       <div class="card-action-element">
@@ -284,7 +230,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> --}}
                   <!--/ Billing Address -->
 @endsection
 @section('modal')
@@ -298,13 +244,14 @@
                         <h3>Add New Card</h3>
                         <p>Add new card to complete payment</p>
                       </div>
-                      <form id="addNewCCForm" class="row g-3" onsubmit="return false">
+                      <form id="addNewCCForm" class="row g-3" action="{{route('storeCard')}}" method="POST">
+                        @csrf
                         <div class="col-12">
                           <label class="form-label w-100" for="modalAddCard">Card Number</label>
                           <div class="input-group input-group-merge">
                             <input
                               id="modalAddCard"
-                              name="modalAddCard"
+                              name="card_number"
                               class="form-control credit-card-mask"
                               type="text"
                               placeholder="1356 3215 6548 7898"
@@ -317,13 +264,14 @@
                         </div>
                         <div class="col-12 col-md-6">
                           <label class="form-label" for="modalAddCardName">Name</label>
-                          <input type="text" id="modalAddCardName" class="form-control" placeholder="John Doe" />
+                          <input type="text" name="name" id="modalAddCardName" class="form-control" placeholder="John Doe" />
                         </div>
                         <div class="col-6 col-md-3">
                           <label class="form-label" for="modalAddCardExpiryDate">Exp. Date</label>
                           <input
                             type="text"
                             id="modalAddCardExpiryDate"
+                            name="exp_date"
                             class="form-control expiry-date-mask"
                             placeholder="MM/YY"
                           />
@@ -336,6 +284,7 @@
                               id="modalAddCardCvv"
                               class="form-control cvv-code-mask"
                               maxlength="3"
+                              name="cvv"
                               placeholder="654"
                             />
                             <span class="input-group-text cursor-pointer" id="modalAddCardCvv2"
@@ -350,12 +299,12 @@
                         </div>
                         <div class="col-12">
                           <label class="switch">
-                            <input type="checkbox" class="switch-input" />
+                            <input type="checkbox" class="switch-input" name="is_primary" />
                             <span class="switch-toggle-slider">
                               <span class="switch-on"></span>
                               <span class="switch-off"></span>
                             </span>
-                            <span class="switch-label">Save card for future billing?</span>
+                            <span class="switch-label">Primary</span>
                           </label>
                         </div>
                         <div class="col-12 text-center">
@@ -385,15 +334,24 @@
                         <h3>Upgrade Plan</h3>
                         <p>Choose the best plan for user.</p>
                       </div>
-                      <form id="upgradePlanForm" class="row g-3" onsubmit="return false">
+                      <form id="upgradePlanForm" class="row g-3" action='{{route('updatePlan')}}' method="POST">
+                        @method('PUT')
+                        @csrf
                         <div class="col-sm-9">
                           <label class="form-label" for="choosePlan">Choose Plan</label>
                           <select id="choosePlan" name="choosePlan" class="form-select" aria-label="Choose Plan">
                             <option selected>Choose Plan</option>
-                            <option value="standard">Standard - $99/month</option>
-                            <option value="exclusive">Exclusive - $249/month</option>
-                            <option value="Enterprise">Enterprise - $499/month</option>
-                          </select>
+                            <option value="{{auth()->user()->pack->plan}}" selected>{{auth()->user()->pack->plan}}-${{auth()->user()->pack->prix}}/month</option>
+                            @if(auth()->user()->pack->plan!='free')
+                            <option value="free">Free - $0/month</option>
+                            @endif
+                            @if (auth()->user()->pack->plan!='standard')
+                            <option value="standard">Standard - $42/month</option>
+                            @endif
+                            @if(auth()->user()->pack->plan!='premium')
+                            <option value="premium">premium - $84/month</option>
+                            @endif
+                        </select>
                         </div>
                         <div class="d-flex col-sm-3 align-items-end">
                           <button type="submit" class="btn btn-primary">Upgrade</button>
@@ -406,10 +364,9 @@
                       <div class="d-flex flex-wrap justify-content-between align-items-center">
                         <div class="d-flex justify-content-center mt-3 me-2">
                           <sup class="h5 pricing-currency text-primary pt-1 mt-3 me-1 mb-0">$</sup>
-                          <h1 class="display-3 text-primary mb-0">99</h1>
+                          <h1 class="display-3 text-primary mb-0">{{auth()->user()->pack->prix}}</h1>
                           <sub class="h5 pricing-duration mt-auto mb-2">/month</sub>
                         </div>
-                        <button class="btn btn-label-danger cancel-subscription mt-3">Cancel Subscription</button>
                       </div>
                     </div>
                   </div>
@@ -417,7 +374,7 @@
               </div>
               <!--/ Add New Credit Card Modal -->
               <!-- Add New Address Modal -->
-              <div class="modal fade" id="addNewAddress" tabindex="-1" aria-hidden="true">
+              {{-- <div class="modal fade" id="addNewAddress" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-lg modal-simple modal-add-new-address">
                                   <div class="modal-content p-3 p-md-5">
                                     <div class="modal-body">
@@ -608,10 +565,10 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+                              </div> --}}
                               <!--/ Add New Address Modal -->
-              <!-- Add New Credit Card Modal -->
-              <div class="modal fade" id="editCCModal" tabindex="-1" aria-hidden="true">
+              <!-- Edit Credit Card Modal -->
+              {{-- <div class="modal fade" id="editCCModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-simple modal-add-new-cc">
                   <div class="modal-content p-3 p-md-5">
                     <div class="modal-body">
@@ -620,7 +577,10 @@
                         <h3>Edit Card</h3>
                         <p>Edit your saved card details</p>
                       </div>
-                      <form id="editCCForm" class="row g-3" onsubmit="return false">
+                      <form id="editCCForm" class="row g-3" action="{{route('updateCard')}}" method="Post">
+                        @method('PUT')
+                        @csrf
+
                         <div class="col-12">
                           <label class="form-label w-100" for="modalEditCard">Card Number</label>
                           <div class="input-group input-group-merge">
@@ -704,6 +664,6 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> --}}
               <!--/ Add New Credit Card Modal -->
 @endsection

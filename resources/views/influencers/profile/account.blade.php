@@ -63,9 +63,9 @@
     <script src="{{asset('vendor/libs/cleavejs/cleave.js')}}"></script>
     <script src="{{asset('vendor/libs/cleavejs/cleave-phone.js')}}"></script>
     <script src="{{asset('vendor/libs/select2/select2.js')}}"></script>
-    <script src="{{asset('vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
+    {{-- <script src="{{asset('vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
     <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js')}}"></script>
-    <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
+    <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script> --}}
 
     <!-- Main JS -->
     <script src="{{asset('js/main.js')}}"></script>

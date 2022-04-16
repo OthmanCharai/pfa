@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('guest.home');
 });
 
 Route::prefix('guest')->name('guest.')->group(function () {
@@ -34,9 +34,13 @@ Route::prefix('guest')->name('guest.')->group(function () {
     Route::get('/products',function(){
         return view('guest.products');
     })->name('products');
+
 });
 
 Route::prefix('influencers')->name('influencers.')->group(function(){
+    Route::put('/updateProfile',[App\Http\Controllers\InfluencerController::class, 'updateProfile'])->name('updateProfile');
+    Route::put('/updatePassword',[App\Http\Controllers\InfluencerController::class, 'updatePassword'])->name('updatePassword');
+
     Route::get('dashbord',function(){
         return view('influencers.dashbord');
     })->name('dashbord');
@@ -94,4 +98,7 @@ Route::get('/pricing',function(){
     return view('influencers.pack');
 });
 Route::post('storePlan',[App\Http\Controllers\HomeController::class, 'storePlan'])->name('storePlan');
+Route::put('updatePlan',[App\Http\Controllers\HomeController::class, 'updatePlan'])->name('updatePlan');
 Route::post('storeCard',[App\Http\Controllers\HomeController::class, 'storeCard'])->name('storeCard');
+// Route::put('updateCard',[App\Http\Controllers\HomeController::class, 'updateCard'])->name('updateCard');
+Route::delete('deleteCard/{id}',[App\Http\Controllers\HomeController::class, 'deleteCard'])->name('deleteCard');

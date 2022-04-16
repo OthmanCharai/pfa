@@ -59,20 +59,57 @@ class HomeController extends Controller
 
     }
     public function storeCard(Request $request){
+        // dd($request);
         $request->validate(
             [
-                'card_number'=>'required|size:17',
+                'card_number'=>'required|size:17|unique:cards',
                 'name'=>'required|string',
                 'exp_date'=>'required|size:5',
                 'cvv'=>'required|size:3'
             ]
         );
-        $data=$request->except('_token');
+        $data=$request->only(['card_number','name','exp_date','cvv']);
         $data['user_id']=Auth::id();
-        $data['is_primary']=true;
+        if($request->has('is_primary') ){
+            $data['is_primary']=true;
+        }else{
+            $data['is_primary']=false;
+        }
         Card::create($data);
         return redirect()->back();
         // dd($data);
 
+    }
+    public function deleteCard($id){
+        Card::destroy($id);
+        return redirect()->back();
+    }
+    public function updatePlan(Request $request){
+        if($request['choosePlan']=='free'){
+            $data=[
+                'proposals'=>'100',
+                'plan'=>'free',
+                'prix'=>0
+
+            ];
+        }else if($request['choosePlan']=='standard'){
+            $data=[
+                'proposals'=>'500',
+                'plan'=>'standard',
+                'prix'=>49
+            ];
+        }else{
+            $data=[
+                'proposals'=>'1000',
+                'plan'=>'premium',
+                'prix'=>84
+
+            ];
+        }
+        $data['user_id']=Auth::id();
+        $data['payement_date']=now();
+        $user=Auth::user();
+        $user->pack->update($data);
+        return redirect()->back();
     }
 }

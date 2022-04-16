@@ -42,7 +42,7 @@
         </div><!-- End .container -->
     </nav><!-- End .breadcrumb-nav -->
     <div class="container">
-        <div class="page-header page-header-big text-center" style="background-image: url('assets/images/about-header-bg.jpg')">
+        <div class="page-header page-header-big text-center" style="background-image: url({{asset('temp2/images/about-header-bg.jpg')}})">
             <h1 class="page-title text-white">About us<span class="text-white">Who we are</span></h1>
         </div><!-- End .page-header -->
     </div><!-- End .container -->
@@ -52,12 +52,12 @@
             <div class="row">
                 <div class="col-lg-6 mb-3 mb-lg-0">
                     <h2 class="title">Our Vision</h2><!-- End .title -->
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. </p>
+                    <p>We are intending to be the first and desired place for entreprises to post their products to get the best promotions from the best affiliates.<br> Our platform is going to be a big help for the marketers and the buisnesses as well.</p>
                 </div><!-- End .col-lg-6 -->
 
                 <div class="col-lg-6">
                     <h2 class="title">Our Mission</h2><!-- End .title -->
-                    <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. <br>Praesent elementum hendrerit tortor. Sed semper lorem at felis. </p>
+                    <p>Our main goal is to help you expand your work and provide you with the best tools and services.<br> The more you succeed, the more we grow and the more we develop our services. </p>
                 </div><!-- End .col-lg-6 -->
             </div><!-- End .row -->
 

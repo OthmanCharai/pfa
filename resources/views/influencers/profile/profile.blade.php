@@ -34,14 +34,14 @@
                           <div class="d-flex flex-column align-items-center">
                             <img
                               class="img-fluid rounded my-4"
-                              src="{{asset('/img/avatars/10.png')}}"
+                              src="{{asset("storage/".auth()->user()->avatar)}}"
                               height="110"
                               width="110"
                               alt="User avatar"
                             />
                             <div class="user-info text-center">
-                              <h4 class="mb-2">Violet Mendoza</h4>
-                              <span class="badge bg-label-secondary">Author</span>
+                              <h4 class="mb-2">{{auth()->user()->name}}</h4>
+                              <span class="badge bg-label-secondary">{{auth()->user()->influencer->category}}</span>
                             </div>
                           </div>
                         </div>
@@ -49,15 +49,15 @@
                           <div class="gap-3 d-flex align-items-start mt-3 me-4">
                             <span class="badge bg-label-primary rounded p-2"><i class="bx bx-check bx-sm"></i></span>
                             <div>
-                              <h5 class="mb-0">1.23k</h5>
-                              <span>Tasks Done</span>
+                              <h5 class="mb-0">{{(auth()->user()->influencer->walet)? auth()->user()->influencer->walet :'0'}}</h5>
+                              <span>Walet</span>
                             </div>
                           </div>
                           <div class="gap-3 d-flex align-items-start mt-3">
                             <span class="badge bg-label-primary rounded p-2"><i class="bx bx-customize bx-sm"></i></span>
                             <div>
-                              <h5 class="mb-0">568</h5>
-                              <span>Projects Done</span>
+                              <h5 class="mb-0">{{(auth()->user()->influencer->nb_pub)? auth()->user()->influencer->nb_pub :'0'}}</h5>
+                              <span>Pubs Done</span>
                             </div>
                           </div>
                         </div>
@@ -66,35 +66,35 @@
                           <ul class="list-unstyled">
                             <li class="mb-3">
                               <span class="fw-bold me-2">Username:</span>
-                              <span>violet.dev</span>
+                              <span>{{auth()->user()->name}}</span>
                             </li>
                             <li class="mb-3">
                               <span class="fw-bold me-2">Email:</span>
-                              <span>vafgot@vultukir.org</span>
+                              <span>{{auth()->user()->email}}</span>
                             </li>
-                            <li class="mb-3">
+                            {{-- <li class="mb-3">
                               <span class="fw-bold me-2">Status:</span>
                               <span class="badge bg-label-success">Active</span>
-                            </li>
+                            </li> --}}
                             <li class="mb-3">
                               <span class="fw-bold me-2">Role:</span>
-                              <span>Author</span>
+                              <span>{{auth()->user()->role}}</span>
                             </li>
-                            <li class="mb-3">
+                            {{-- <li class="mb-3">
                               <span class="fw-bold me-2">Tax id:</span>
                               <span>Tax-8965</span>
-                            </li>
+                            </li> --}}
                             <li class="mb-3">
-                              <span class="fw-bold me-2">Contact:</span>
-                              <span>(123) 456-7890</span>
+                              <span class="fw-bold me-2">Phone Number:</span>
+                              <span>{{auth()->user()->contact}} </span>
                             </li>
                             <li class="mb-3">
                               <span class="fw-bold me-2">Languages:</span>
-                              <span>French</span>
+                              <span>{{auth()->user()->language}}</span>
                             </li>
                             <li class="mb-3">
                               <span class="fw-bold me-2">Country:</span>
-                              <span>England</span>
+                              <span>{{auth()->user()->country}}</span>
                             </li>
                           </ul>
                           <div class="d-flex justify-content-center pt-3">
@@ -150,8 +150,10 @@
                           <h3>Edit User Information</h3>
                           <p>Updating user details will receive a privacy audit.</p>
                         </div>
-                        <form id="editUserForm" class="row g-3" onsubmit="return false">
-                          <div class="col-12 col-md-6">
+                        <form id="editUserForm" class="row g-3" action="{{route('influencers.updateProfile')}}" method="POST"  enctype="multipart/form-data">
+                            @method('PUT')
+                            @csrf
+                          {{-- <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserFirstName">First Name</label>
                             <input
                               type="text"
@@ -170,28 +172,36 @@
                               class="form-control"
                               placeholder="Doe"
                             />
-                          </div>
-                          <div class="col-12">
+                          </div> --}}
+                          <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserName">Username</label>
                             <input
                               type="text"
                               id="modalEditUserName"
-                              name="modalEditUserName"
+                              name="name"
                               class="form-control"
                               placeholder="john.doe.007"
+                              value="{{old('name',isset( auth()->user()->name) ?  auth()->user()->name :'') ?? NULL}}"
                             />
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <label class="form-label" for="avatar">Avatar</label>
+                            <input type="file" name="avatar" id="avatar" class="form-control" />
+
                           </div>
                           <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserEmail">Email</label>
                             <input
                               type="text"
                               id="modalEditUserEmail"
-                              name="modalEditUserEmail"
+                              name="email"
                               class="form-control"
                               placeholder="example@domain.com"
+                              value="{{old('email',isset( auth()->user()->email) ?  auth()->user()->email :'') ?? NULL}}"
                             />
                           </div>
-                          <div class="col-12 col-md-6">
+                          {{-- <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserStatus">Status</label>
                             <select
                               id="modalEditUserStatus"
@@ -204,27 +214,44 @@
                               <option value="2">Inactive</option>
                               <option value="3">Suspended</option>
                             </select>
-                          </div>
-                          <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditTaxID">Tax ID</label>
-                            <input
-                              type="text"
-                              id="modalEditTaxID"
-                              name="modalEditTaxID"
-                              class="form-control modal-edit-tax-id"
-                              placeholder="123 456 7890"
-                            />
-                          </div>
+                          </div> --}}
+
                           <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserPhone">Phone Number</label>
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text">+1</span>
                               <input
                                 type="text"
                                 id="modalEditUserPhone"
-                                name="modalEditUserPhone"
+                                name="contact"
                                 class="form-control phone-number-mask"
                                 placeholder="202 555 0111"
+                                value="{{old('contact',isset( auth()->user()->contact) ?  auth()->user()->contact :'') ?? NULL}}"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <label class="form-label" for="modalEditUserCategory">Category</label>
+                            <div class="input-group input-group-merge">
+                              <input
+                                type="text"
+                                id="modalEditUserCategory"
+                                name="category"
+                                class="form-control "
+                                placeholder=""
+                                value="{{old('category',isset( auth()->user()->influencer->category) ?  auth()->user()->influencer->category :'') ?? NULL}}"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <label class="form-label" for="modalEditUserlink">Link to social media profile</label>
+                            <div class="input-group input-group-merge">
+                              <input
+                                type="text"
+                                id="modalEditUserlink"
+                                name="link"
+                                class="form-control "
+                                placeholder=""
+                                value="{{old('link',isset( auth()->user()->influencer->link) ?  auth()->user()->influencer->link :'') ?? NULL}}"
                               />
                             </div>
                           </div>
@@ -232,12 +259,13 @@
                             <label class="form-label" for="modalEditUserLanguage">Language</label>
                             <select
                               id="modalEditUserLanguage"
-                              name="modalEditUserLanguage"
+                              name="language"
                               class="select2 form-select"
-                              multiple
+
                             >
                               <option value="">Select</option>
-                              <option value="english" selected>English</option>
+                              <option value="{{auth()->user()->language}}" selected>{{auth()->user()->language}}</option>
+                              <option value="english" >English</option>
                               <option value="spanish">Spanish</option>
                               <option value="french">French</option>
                               <option value="german">German</option>
@@ -251,11 +279,12 @@
                             <label class="form-label" for="modalEditUserCountry">Country</label>
                             <select
                               id="modalEditUserCountry"
-                              name="modalEditUserCountry"
+                              name="country"
                               class="select2 form-select"
                               data-allow-clear="true"
                             >
                               <option value="">Select</option>
+                              <option value="{{auth()->user()->country}}" selected>{{auth()->user()->country}}</option>
                               <option value="Australia">Australia</option>
                               <option value="Bangladesh">Bangladesh</option>
                               <option value="Belarus">Belarus</option>
@@ -282,7 +311,7 @@
                               <option value="United States">United States</option>
                             </select>
                           </div>
-                          <div class="col-12">
+                          {{-- <div class="col-12">
                             <label class="switch">
                               <input type="checkbox" class="switch-input" />
                               <span class="switch-toggle-slider">
@@ -291,7 +320,7 @@
                               </span>
                               <span class="switch-label">Use as a billing address?</span>
                             </label>
-                          </div>
+                          </div> --}}
                           <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary me-1 me-sm-3">Submit</button>
                             <button

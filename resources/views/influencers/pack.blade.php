@@ -188,7 +188,7 @@
                     <input type="hidden" name="prix" value="42">
                     <input type="hidden" name="payement_date" value="{{now()->format('Y-m-d')}}">
                     <button  class="btn btn-label-primary d-grid w-100"
-                    >Get started for free</button>
+                    >Get started</button>
                   </form>
                 </div>
               </div>
@@ -212,7 +212,7 @@
                     <div class="d-flex justify-content-center mb-2">
                       <sup class="h5 pricing-currency mt-3 me-1 mb-0">$</sup>
                       <h1 class="price-toggle price-yearly h1 fw-bold mb-0">84</h1>
-                      <h1 class="price-toggle price-monthly h1 d-none fw-bold mb-0">99</h1>
+                      <h1 class="price-toggle price-monthly h1 d-none fw-bold mb-0">84</h1>
                       <sub class="h5 pricing-duration mt-auto mb-2">/month</sub>
                     </div>
                     <small class="price-yearly price-yearly-toggle text-muted">$ 999 / year</small>
@@ -342,7 +342,16 @@
                     ></span>
                   </div>
                 </div>
-
+                <div class="col-12">
+                    <label class="switch">
+                      <input type="checkbox" class="switch-input" name="is_primary" />
+                      <span class="switch-toggle-slider">
+                        <span class="switch-on"></span>
+                        <span class="switch-off"></span>
+                      </span>
+                      <span class="switch-label">Primary</span>
+                    </label>
+                  </div>
                 <div class="col-12 text-center">
                   <button type="submit" class="btn btn-primary mt-3 me-1 me-sm-3">Submit</button>
                   <button
