@@ -3,83 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entreprise;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EntrepriseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Entreprise  $entreprise
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Entreprise $entreprise)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Entreprise  $entreprise
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Entreprise $entreprise)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Entreprise  $entreprise
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Entreprise $entreprise)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Entreprise  $entreprise
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Entreprise $entreprise)
-    {
-        //
+    public function updateProfile(Request $request){
+        $user=User::find(Auth::id());
+        $userData=$request->only(['name','email','contact','language','country']);
+        $entrepriseData=$request->only(['link','adresse']);
+        if($request->hasFile('avatar')){
+            $path=$request->file('avatar')->store('avatars');
+            $userData['avatar']=$path;
+        }
+        $user->update($userData);
+        $user->entreprise()->update($entrepriseData);
+        // dump($userData);
+        // dump($user);
+        // $user->update($request);
+        // dump($request);
+        // dd($request->hasFile('avatar'));
+        return redirect()->back();
     }
 }

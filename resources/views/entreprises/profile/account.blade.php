@@ -1,4 +1,4 @@
-@extends('entreprise.profile.profile')
+@extends('entreprises.profile.profile')
 @section('afterCss')
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{asset('vendor/css/rtl/core.css')}}" class="template-customizer-core-css" />
@@ -62,9 +62,9 @@
     <script src="{{asset('vendor/libs/cleavejs/cleave.js')}}"></script>
     <script src="{{asset('vendor/libs/cleavejs/cleave-phone.js')}}"></script>
     <script src="{{asset('vendor/libs/select2/select2.js')}}"></script>
-    <script src="{{asset('vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
+    {{-- <script src="{{asset('vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
     <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js')}}"></script>
-    <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
+    <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script> --}}
 
     <!-- Main JS -->
     <script src="{{asset('js/main.js')}}"></script>
@@ -101,7 +101,7 @@
     </div>
     <!-- /Project table -->
 
-   {{--  <!-- Activity Timeline -->
+    <!-- Activity Timeline -->
     <div class="card mb-4">
       <h5 class="card-header">User Activity Timeline</h5>
       <div class="card-body">
@@ -219,5 +219,5 @@
         </ul>
       </div>
     </div>
-    <!-- /Activity Timeline --> --}}
+    <!-- /Activity Timeline -->
 @endsection

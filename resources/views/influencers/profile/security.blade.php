@@ -61,7 +61,7 @@
                   <div class="card mb-4">
                     <h5 class="card-header">Change Password</h5>
                     <div class="card-body">
-                      <form id="formChangePassword" method="POST" action="{{route('influencers.updatePassword')}}">
+                      <form id="formChangePassword" method="POST" action="{{route('updatePassword')}}">
                         @method('PUT')
                         @csrf
                         <div class="alert alert-warning" role="alert">

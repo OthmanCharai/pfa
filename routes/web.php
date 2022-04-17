@@ -39,7 +39,7 @@ Route::prefix('guest')->name('guest.')->group(function () {
 
 Route::prefix('influencers')->name('influencers.')->group(function(){
     Route::put('/updateProfile',[App\Http\Controllers\InfluencerController::class, 'updateProfile'])->name('updateProfile');
-    Route::put('/updatePassword',[App\Http\Controllers\InfluencerController::class, 'updatePassword'])->name('updatePassword');
+    // Route::put('/updatePassword',[App\Http\Controllers\InfluencerController::class, 'updatePassword'])->name('updatePassword');
 
     Route::get('dashbord',function(){
         return view('influencers.dashbord');
@@ -67,22 +67,23 @@ Route::prefix('influencers')->name('influencers.')->group(function(){
  *  entreprise route
  */
 Route::prefix('entreprises')->name('entreprises.')->group(function(){
+    Route::put('/updateProfile',[App\Http\Controllers\EntrepriseController::class, 'updateProfile'])->name('updateProfile');
     Route::get('dashbord',function(){
-        return view('entreprise.dashboard');
+        return view('entreprises.dashboard');
     })->name('dashbord');
     Route::prefix('profile')->name('profile.')->group(function(){
         Route::get('account',function(){
-            return view('entreprise.profile.account');
+            return view('entreprises.profile.account');
         })->name('account');
         Route::get('security',function(){
-            return view('entreprise.profile.security');
+            return view('entreprises.profile.security');
         })->name('security');
         Route::get('products',function(){
-            return view('entreprise.profile.products');
+            return view('entreprises.profile.products');
         })->name('products');
 
         Route::get('applied_products',function(){
-            return view('entreprise.profile.applied_products');
+            return view('entreprises.profile.applied_products');
         })->name('applied_products');
 
 
@@ -97,6 +98,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/pricing',function(){
     return view('influencers.pack');
 });
+Route::put('/updatePassword',[App\Http\Controllers\HomeController::class, 'updatePassword'])->name('updatePassword');
 Route::post('storePlan',[App\Http\Controllers\HomeController::class, 'storePlan'])->name('storePlan');
 Route::put('updatePlan',[App\Http\Controllers\HomeController::class, 'updatePlan'])->name('updatePlan');
 Route::post('storeCard',[App\Http\Controllers\HomeController::class, 'storeCard'])->name('storeCard');

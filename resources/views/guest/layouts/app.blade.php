@@ -83,9 +83,14 @@
                                     <i class="icon-home"></i>Profile</a>
                             </li>
                             <li class="megamenu-container ">
-                                <a href="{{route('logout')}}">
+                                <form  method="POST" action="{{route('logout')}}">
+                                    @csrf
+                                    <button class="btn">
+                                        <i class="icon-long-arrow-right me-2"></i>
+                                        <span class="align-middle">Log Out</span>
+                                    </button>
+                                </form>
 
-                                    <i class="icon-long-arrow-right"></i>Logout</a>
                             </li>
                             @endauth
                         </ul>

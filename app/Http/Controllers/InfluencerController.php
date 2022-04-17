@@ -26,13 +26,13 @@ class InfluencerController extends Controller
         // dd($request->hasFile('avatar'));
         return redirect()->back();
     }
-    public function updatePassword(Request $request){
-        $request->validate([
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-        $user=User::find(Auth::id());
-        $user->update(['password'=>Hash::make($request['password'])]);
-        // dd(Hash::make($request['password']));
-        return redirect()->back();
-    }
+    // public function updatePassword(Request $request){
+    //     $request->validate([
+    //         'password' => ['required', 'string', 'min:8', 'confirmed'],
+    //     ]);
+    //     $user=User::find(Auth::id());
+    //     $user->update(['password'=>Hash::make($request['password'])]);
+    //     // dd(Hash::make($request['password']));
+    //     return redirect()->back();
+    // }
 }

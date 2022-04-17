@@ -1,4 +1,4 @@
-@extends('entreprise.layouts.app')
+@extends('entreprises.layouts.app')
 @section('afterCss')
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{asset('vendor/css/rtl/core.css')}}" class="template-customizer-core-css" />

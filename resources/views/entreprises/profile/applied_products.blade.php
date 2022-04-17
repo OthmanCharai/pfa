@@ -1,4 +1,4 @@
-@extends('entreprise.profile.profile')
+@extends('entreprises.profile.profile')
 @section('afterCss')
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{asset('vendor/css/rtl/core.css')}}" class="template-customizer-core-css" />

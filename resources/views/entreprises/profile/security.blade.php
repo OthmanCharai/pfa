@@ -1,4 +1,4 @@
-@extends('entreprise.profile.profile')
+@extends('entreprises.profile.profile')
 @section('afterCss')
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{asset('vendor/css/rtl/core.css')}}" class="template-customizer-core-css" />
@@ -43,9 +43,9 @@
     <script src="{{asset('vendor/libs/cleavejs/cleave.js')}}"></script>
     <script src="{{asset('vendor/libs/cleavejs/cleave-phone.js')}}"></script>
     <script src="{{asset('vendor/libs/select2/select2.js')}}"></script>
-    <script src="{{asset('vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
+    {{-- <script src="{{asset('vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
     <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js')}}"></script>
-    <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
+    <script src="{{asset('vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script> --}}
 
     <!-- Main JS -->
     <script src="{{asset('js/main.js')}}"></script>
@@ -57,11 +57,13 @@
     <script src="{{asset('js/app-user-view-security.js')}}"></script>
 @endsection
 @section('profileContent')
-                  <!-- Change Password -->
-                  <div class="card mb-4">
+                 <!-- Change Password -->
+                 <div class="card mb-4">
                     <h5 class="card-header">Change Password</h5>
                     <div class="card-body">
-                      <form id="formChangePassword" method="POST" onsubmit="return false">
+                      <form id="formChangePassword" method="POST" action="{{route('updatePassword')}}">
+                        @method('PUT')
+                        @csrf
                         <div class="alert alert-warning" role="alert">
                           <h6 class="alert-heading fw-bold mb-1">Ensure that these requirements are met</h6>
                           <span>Minimum 8 characters long, uppercase & symbol</span>
@@ -74,10 +76,11 @@
                                 class="form-control"
                                 type="password"
                                 id="newPassword"
-                                name="newPassword"
+                                name="password"
                                 placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                               />
                               <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+
                             </div>
                           </div>
 
@@ -87,13 +90,23 @@
                               <input
                                 class="form-control"
                                 type="password"
-                                name="confirmPassword"
-                                id="confirmPassword"
+                                name="password_confirmation"
+                                id="password-confirm"
                                 placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                               />
                               <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
+                        </div>
+                        @if($errors->any())
+                          <div class="alert alert-danger ">
+                              <ul class="list-group">
+                                  @foreach ($errors->all() as $error)
+                                      <li class="list-group-item text-danger">{{$error}}</li>
+                                  @endforeach
+                              </ul>
+
                           </div>
+                        @endif
                           <div>
                             <button type="submit" class="btn btn-primary me-2">Change Password</button>
                           </div>

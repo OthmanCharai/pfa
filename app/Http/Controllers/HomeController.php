@@ -6,8 +6,10 @@ use App\Models\Card;
 use App\Models\Entreprise;
 use App\Models\Influencer;
 use App\Models\Pack;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -31,10 +33,12 @@ class HomeController extends Controller
         $user=Auth::user();
 
         if($user->role=='influencer'){
-            return view('influencers.pack');
+            return redirect()->route('influencers.pack');
         }else{
-            Entreprise::create(['user_id'=>Auth::user()->id]);
-            return view('entreprise.profile.account');
+            if(!$user->entreprise){
+                Entreprise::create(['user_id'=>Auth::user()->id]);
+            }
+            return redirect()->route('entreprises.profile.account');
         }
         // return view('home');
     }
@@ -110,6 +114,15 @@ class HomeController extends Controller
         $data['payement_date']=now();
         $user=Auth::user();
         $user->pack->update($data);
+        return redirect()->back();
+    }
+    public function updatePassword(Request $request){
+        $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        $user=User::find(Auth::id());
+        $user->update(['password'=>Hash::make($request['password'])]);
+        // dd(Hash::make($request['password']));
         return redirect()->back();
     }
 }
