@@ -39,9 +39,9 @@
                             <i class="icon-bars"></i>
                         </button>
 
-                        <a href="" class="logo">
+                        {{-- <a href="" class="logo">
                             <img src="{{asset('temp2/images/logo.png')}}" alt="Molla Logo" width="105" height="25">
-                        </a>
+                        </a> --}}
 
                         <nav class="main-nav">
                             <ul class="menu ">

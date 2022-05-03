@@ -113,7 +113,7 @@
                         >
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link {{ request()->is('entreprises/profile/products') ? 'active' : '' }}" href="{{route('entreprises.profile.products')}}"
+                        <a class="nav-link {{ request()->is('entreprises.profile.products.index') ? 'active' : '' }}" href="{{route('entreprises.profile.products.index')}}"
                           ><i class="bx bx-detail me-1"></i>Products</a
                         >
                       </li>

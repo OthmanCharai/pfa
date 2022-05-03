@@ -78,9 +78,7 @@ Route::prefix('entreprises')->name('entreprises.')->group(function(){
         Route::get('security',function(){
             return view('entreprises.profile.security');
         })->name('security');
-        Route::get('products',function(){
-            return view('entreprises.profile.products');
-        })->name('products');
+        Route::resource('/products', App\Http\Controllers\ProductController::class);
 
         Route::get('applied_products',function(){
             return view('entreprises.profile.applied_products');
@@ -97,7 +95,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/pricing',function(){
     return view('influencers.pack');
-});
+})->name('influencers.pack');
 Route::put('/updatePassword',[App\Http\Controllers\HomeController::class, 'updatePassword'])->name('updatePassword');
 Route::post('storePlan',[App\Http\Controllers\HomeController::class, 'storePlan'])->name('storePlan');
 Route::put('updatePlan',[App\Http\Controllers\HomeController::class, 'updatePlan'])->name('updatePlan');

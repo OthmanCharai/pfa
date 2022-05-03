@@ -35,7 +35,7 @@
             <div class="container-xxl">
               <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
                 <a href="index.html" class="app-brand-link gap-2">
-                  <span class="app-brand-logo demo">
+                  {{-- <span class="app-brand-logo demo">
                     <svg
                       width="25"
                       viewBox="0 0 25 42"
@@ -89,7 +89,7 @@
                         </g>
                       </g>
                     </svg>
-                  </span>
+                  </span> --}}
                   <span class="app-brand-text demo menu-text fw-bolder">Sneat</span>
                 </a>
 

@@ -72,152 +72,312 @@
     <!-- Page JS -->
     <script src="{{asset('js/modal-edit-user.js')}}"></script>
     <script src="{{asset('js/app-user-view.js')}}"></script>
-    <script src="{{asset('js/app-user-view-account.js')}}"></script>
+    {{-- <script src="{{asset('js/app-user-view-account.js')}}"></script> --}}
 @endsection
 @section('profileContent')
     <!-- Project table -->
     <div class="card mb-4">
+        <h5 class="card-header">
+            <button type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#addProduct">Add Product</button>
+        </h5>
       <h5 class="card-header">User's Projects List</h5>
       <div class="table-responsive mb-3">
         <table class="table datatable-project border-top">
           <thead>
             <tr>
               <th></th>
-              <th>Project</th>
-              <th class="text-nowrap">Total Task</th>
-              <th>Progress</th>
-              <th>Hours</th>
+              <th>Product</th>
+              <th class="text-nowrap">Category</th>
+              <th>Price/Price Of publishing</th>
+              <th>Link</th>
+              <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-              <td></td>
-              <td>lorem</td>
-              <td>lorem</td>
-              <td>lorem</td>
-              <td>lorem</td>
-          </tbody>
+          <tbody class="table-border-bottom-0">
+            @foreach($products as $product)
+              <tr>
+                <td>
+                  {{$product->id}}
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img
+                      src="{{asset("storage/".$product->image)}}"
+                      alt=""
+                      height="32"
+                      width="32"
+                      class="me-2"
+                    />
+                    <div class="d-flex flex-column">
+                      <span class="lh-1 fw-semibold">{{$product->name}}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>{{$product->category->name}}</td>
+                <td>{{$product->price}}/{{$product->publishing_price}}</td>
+                <td>{{$product->link}}</td>
+                <td>
+                  <div class="dropdown">
+                    <button
+                      type="button"
+                      class="btn dropdown-toggle hide-arrow p-0"
+                      data-bs-toggle="dropdown"
+                    >
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" style="padding: 0.25rem 1.5rem;" href=""
+                        ><i class='bx bxs-show' ></i>ViewDetails </a
+                      >
+                      <button class="dropdown-item" style="padding: 0.25rem 1.5rem;"  data-bs-toggle="modal" data-bs-target="#editProduct{{$product->id}}"
+                      ><i class="bx bx-edit-alt me-1"></i>Edit</button>
+                        <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteProduct{{$product->id}}" style="padding: 0.25rem 1.5rem;"
+                          ><i class="bx bx-trash me-1"></i>Delete </
+                        >
+                    </div>
+                  </div>
+                </td>
+
+              </tr>
+
+
+
+              <!-- delete Chapter modal -->
+              <div class="modal fade" id="deleteProduct{{$product->id}}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog  modal-simple ">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                      <div class="text-center mb-4">
+                        <h3>delete Product</h3>
+                      </div>
+                      <div class="swal2-icon swal2-error swal2-icon-show" style="display: flex;"><span class="swal2-x-mark">
+                          <span class="swal2-x-mark-line-left"></span>
+                          <span class="swal2-x-mark-line-right"></span>
+                        </span>
+                      </div>
+                      <div class="text-center mb-4">
+                        <h3>Are you sure you would like to delete this?</h3>
+                      </div>
+                    <form action="{{route('entreprises.profile.products.destroy',['product'=>$product->id])}}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-primary me-1 me-sm-3">Save</button>
+                          <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end Delete product modal -->
+        <!-- edit quizz modal -->
+        <div class="modal fade" id="editProduct{{$product->id}}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog  modal-lg modal-simple ">
+              <div class="modal-content row p-3 p-md-5">
+                <div class="modal-body">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                  <div class="text-center mb-4">
+                    <h3>Edit Product</h3>
+                  </div>
+                  <form id="editUserForm" class="row g-3" action="{{route('entreprises.profile.products.update',['product'=>$product->id])}}" method="POST"  enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="modalEditUserName">Product Name</label>
+                        <input
+                          type="text"
+                          id="modalEditUserName"
+                          name="name"
+                          class="form-control"
+                          placeholder=""
+                          value="{{old('name',isset( $product->name) ?  $product->name :'') ?? NULL}}"
+                        />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="image">Image</label>
+                        <input type="file" name="image" id="image" class="form-control" />
+
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label" >Desctiption</label>
+                        <textarea
+                          name="description"
+                          class="form-control"
+                          placeholder=""
+
+                        >{{$product->description}}</textarea>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label class="form-label" >Category</label>
+                        <select
+                          name="category_id"
+                          class="select2 form-select"
+                        >
+                          <option value="">Select</option>
+                          <option value="{{$product->category->id}}" selected>{{$product->category->name}}</option>
+                          @foreach ($categories as $category)
+                            @if($category->id!=$product->category->id)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endif
+
+                          @endforeach
+                        </select>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label class="form-label" >Link</label>
+                        <input
+                          type="text"
+                          name="link"
+                          class="form-control"
+                          placeholder=""
+                          value="{{old('description',isset( $product->description) ?  $product->link :'') ?? NULL}}"
+                        />
+                    </div>
+                      <div class="col-12 col-md-6">
+                        <label class="form-label" >Price</label>
+                        <input
+                          type="text"
+                          name="price"
+                          class="form-control"
+                          placeholder=""
+                          value="{{old('price',isset( $product->price) ?  $product->price :'') ?? NULL}}"
+                        />
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" >Publishing Price</label>
+                        <input
+                          type="text"
+                          name="publishing_price"
+                          class="form-control"
+                          placeholder=""
+                          value="{{old('publishing_price',isset( $product->publishing_price) ?  $product->publishing_price :'') ?? NULL}}"
+                        />
+                    </div>
+                    <div class="col-12 text-center mt-3">
+                      <button type="submit" class="btn btn-primary me-1 me-sm-3">Save</button>
+                      <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{-- end edit --}}
+
+          @endforeach
+
+
+
+        </tbody>
         </table>
       </div>
     </div>
     <!-- /Project table -->
 
-   {{--  <!-- Activity Timeline -->
-    <div class="card mb-4">
-      <h5 class="card-header">User Activity Timeline</h5>
-      <div class="card-body">
-        <ul class="timeline">
-          <li class="timeline-item timeline-item-transparent">
-            <span class="timeline-point timeline-point-primary"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-1">
-                <h6 class="mb-0">12 Invoices have been paid</h6>
-                <small class="text-muted">12 min ago</small>
-              </div>
-              <p class="mb-2">Invoices have been paid to the company</p>
-              <div class="d-flex">
-                <a href="javascript:void(0)" class="me-3">
-                  <img
-                    src="{{asset('img/icons/misc/pdf.png')}}"
-                    alt="PDF image"
-                    width="15"
-                    class="me-2"
-                  />
-                  <span class="text-body fw-bold">invoices.pdf</span>
-                </a>
-              </div>
-            </div>
-          </li>
-          <li class="timeline-item timeline-item-transparent">
-            <span class="timeline-point timeline-point-warning"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-1">
-                <h6 class="mb-0">Client Meeting</h6>
-                <small class="text-muted">45 min ago</small>
-              </div>
-              <p class="mb-2">Project meeting with john @10:15am</p>
-              <div class="d-flex flex-wrap">
-                <div class="avatar me-3">
-                  <img src="{{asset('img/avatars/3.png')}}" alt="Avatar" class="rounded-circle" />
-                </div>
-                <div>
-                  <h6 class="mb-0">Lester McCarthy (Client)</h6>
-                  <span class="text-muted">CEO of ThemeSelection</span>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="timeline-item timeline-item-transparent">
-            <span class="timeline-point timeline-point-info"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-1">
-                <h6 class="mb-0">Create a new project for client</h6>
-                <small class="text-muted">2 Day Ago</small>
-              </div>
-              <p class="mb-2">5 team members in a project</p>
-              <div class="avatar-group d-flex align-items-center">
-                <div
-                  class="avatar pull-up"
-                  data-bs-toggle="tooltip"
-                  data-popup="tooltip-custom"
-                  data-bs-placement="top"
-                  title="Vinnie Mostowy"
-                >
-                  <img src="{{asset('img/avatars/5.png')}}" alt="Avatar" class="rounded-circle" />
-                </div>
-                <div
-                  class="avatar pull-up"
-                  data-bs-toggle="tooltip"
-                  data-popup="tooltip-custom"
-                  data-bs-placement="top"
-                  title="Marrie Patty"
-                >
-                  <img src="{{asset('img/avatars/12.png')}}" alt="Avatar" class="rounded-circle" />
-                </div>
-                <div
-                  class="avatar pull-up"
-                  data-bs-toggle="tooltip"
-                  data-popup="tooltip-custom"
-                  data-bs-placement="top"
-                  title="Jimmy Jackson"
-                >
-                  <img src="{{asset('img/avatars/9.png')}}" alt="Avatar" class="rounded-circle" />
-                </div>
-                <div
-                  class="avatar pull-up"
-                  data-bs-toggle="tooltip"
-                  data-popup="tooltip-custom"
-                  data-bs-placement="top"
-                  title="Kristine Gill"
-                >
-                  <img src="{{asset('img/avatars/6.png')}}" alt="Avatar" class="rounded-circle" />
-                </div>
-                <div
-                  class="avatar pull-up"
-                  data-bs-toggle="tooltip"
-                  data-popup="tooltip-custom"
-                  data-bs-placement="top"
-                  title="Nelson Wilson"
-                >
-                  <img src="{{asset('img/avatars/14.png')}}" alt="Avatar" class="rounded-circle" />
+
+        <!-- add quizz modal -->
+        <div class="modal fade" id="addProduct" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog  modal-lg modal-simple ">
+              <div class="modal-content p-3 p-md-5">
+                <div class="modal-body">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                  <div class="text-center mb-4">
+                    <h3>Add Product</h3>
+                  </div>
+                  <form id="editUserForm" class="row g-3" action="{{route('entreprises.profile.products.store')}}" method="POST"  enctype="multipart/form-data">
+                    @csrf
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="modalEditUserName">Product Name</label>
+                        <input
+                          type="text"
+                          id="modalEditUserName"
+                          name="name"
+                          class="form-control"
+                          placeholder=""
+                          value=""
+                        />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="image">Image</label>
+                        <input type="file" name="image" id="image" class="form-control" />
+
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label" >Desctiption</label>
+                        <textarea
+                          name="description"
+                          class="form-control"
+                          placeholder=""
+                          value=""
+                        ></textarea>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label class="form-label" >Category</label>
+                        <select
+                          name="category_id"
+                          class="select2 form-select"
+                        >
+                          <option value="">Select</option>
+                          @foreach ($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+
+                          @endforeach
+                        </select>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label class="form-label" >Link</label>
+                        <input
+                          type="text"
+                          name="link"
+                          class="form-control"
+                          placeholder=""
+                          value=""
+                        />
+                    </div>
+                      <div class="col-12 col-md-6">
+                        <label class="form-label" >Price</label>
+                        <input
+                          type="text"
+                          name="price"
+                          class="form-control"
+                          placeholder=""
+                          value=""
+                        />
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" >Publishing Price</label>
+                        <input
+                          type="text"
+                          name="publishing_price"
+                          class="form-control"
+                          placeholder=""
+                          value=""
+                        />
+                    </div>
+
+
+
+
+                    <div class="col-12 text-center">
+                      <button type="submit" class="btn btn-primary me-1 me-sm-3">Save</button>
+                      <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
-          </li>
-          <li class="timeline-item timeline-item-transparent">
-            <span class="timeline-point timeline-point-success"></span>
-            <div class="timeline-event">
-              <div class="timeline-header mb-1">
-                <h6 class="mb-0">Design Review</h6>
-                <small class="text-muted">5 days Ago</small>
-              </div>
-              <p class="mb-0">Weekly review of freshly prepared design for our new app.</p>
-            </div>
-          </li>
-          <li class="timeline-end-indicator">
-            <i class="bx bx-check-circle"></i>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!-- /Activity Timeline --> --}}
+          </div>
 @endsection

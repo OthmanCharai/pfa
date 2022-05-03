@@ -73,37 +73,401 @@
     <!-- Page JS -->
     <script src="{{asset('js/modal-edit-user.js')}}"></script>
     <script src="{{asset('js/app-user-view.js')}}"></script>
-    <script src="{{asset('js/app-user-view-account.js')}}"></script>
+    {{-- <script src="{{asset('js/app-user-view-account.js')}}"></script> --}}
 @endsection
 @section('profileContent')
+<div class="row">
+    <div class="col-md-12  mb-4 mb-md-0">
+        <div class="card">
+          <div class="table-responsive text-nowrap">
+            <table class="table text-nowrap">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Category</th>
+                  <th>Payment</th>
+                  <th>Order Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img
+                        src="{{asset('/img/icons/products/oneplus.png')}}"
+                        alt="Oneplus"
+                        height="32"
+                        width="32"
+                        class="me-2"
+                      />
+                      <div class="d-flex flex-column">
+                        <span class="lh-1 fw-semibold">OnePlus 7Pro</span>
+                        <small class="text-muted">OnePlus</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge bg-label-primary rounded-pill badge-center p-3 me-2"
+                      ><i class="bx bx-mobile-alt bx-xs"></i
+                    ></span>
+                    Smart Phone
+                  </td>
+                  <td>
+                    <div class="lh-1 text-muted"><span class="text-primary fw-semibold">$120</span>/499</div>
+                    <small class="text-muted">Partially Paid</small>
+                  </td>
+                  <td><span class="badge bg-label-primary">Confirmed</span></td>
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn dropdown-toggle hide-arrow p-0"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-edit-alt me-1"></i> View Details</a
+                        >
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-trash me-1"></i> Buy Again</a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img
+                        src="{{asset('/img/icons/products/magic-mouse.png')}}"
+                        alt="Apple"
+                        height="32"
+                        width="32"
+                        class="me-2"
+                      />
+                      <div class="d-flex flex-column">
+                        <span class="lh-1 fw-semibold">Magic Mouse</span>
+                        <small class="text-muted">Apple</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge bg-label-warning rounded-pill badge-center p-3 me-2"
+                      ><i class="bx bx-mouse bx-xs"></i
+                    ></span>
+                    Mouse
+                  </td>
+                  <td>
+                    <div class="lh-1"><span class="text-primary fw-semibold">$149</span></div>
+                    <small class="text-muted">Fully Paid</small>
+                  </td>
+                  <td><span class="badge bg-label-success">Completed</span></td>
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn dropdown-toggle hide-arrow p-0"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-edit-alt me-1"></i> View Details</a
+                        >
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-trash me-1"></i> Buy Again</a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img
+                        src="{{asset('/img/icons/products/imac-pro.png')}}"
+                        alt="Apple"
+                        height="32"
+                        width="32"
+                        class="me-2"
+                      />
+                      <div class="d-flex flex-column">
+                        <span class="lh-1 fw-semibold">iMac Pro</span>
+                        <small class="text-muted">Apple</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge bg-label-info rounded-pill badge-center p-3 me-2"
+                      ><i class="bx bx-desktop bx-xs"></i
+                    ></span>
+                    Computer
+                  </td>
+                  <td>
+                    <div class="lh-1 text-muted"><span class="text-primary fw-semibold">$0</span>/899</div>
+                    <small class="text-muted">Unpaid</small>
+                  </td>
+                  <td><span class="badge bg-label-danger">Cancelled</span></td>
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn dropdown-toggle hide-arrow p-0"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-edit-alt me-1"></i> View Details</a
+                        >
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-trash me-1"></i> Buy Again</a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img
+                        src="{{asset('/img/icons/products/note10.png')}}"
+                        alt="Samsung"
+                        height="32"
+                        width="32"
+                        class="me-2"
+                      />
+                      <div class="d-flex flex-column">
+                        <span class="lh-1 fw-semibold">Note 10</span>
+                        <small class="text-muted">Samsung</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge bg-label-primary rounded-pill badge-center p-3 me-2"
+                      ><i class="bx bx-mobile-alt bx-xs"></i
+                    ></span>
+                    Smart Phone
+                  </td>
+                  <td>
+                    <div class="lh-1"><span class="text-primary fw-semibold">$149</span></div>
+                    <small class="text-muted">Fully Paid</small>
+                  </td>
+                  <td><span class="badge bg-label-success">Completed</span></td>
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn dropdown-toggle hide-arrow p-0"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-edit-alt me-1"></i> View Details</a
+                        >
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-trash me-1"></i> Buy Again</a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img
+                        src="{{asset('/img/icons/products/iphone.png')}}"
+                        alt="Apple"
+                        height="32"
+                        width="32"
+                        class="me-2"
+                      />
+                      <div class="d-flex flex-column">
+                        <span class="lh-1 fw-semibold">iPhone 11 Pro</span>
+                        <small class="text-muted">Apple</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge bg-label-primary rounded-pill badge-center p-3 me-2"
+                      ><i class="bx bx-mobile-alt bx-xs"></i
+                    ></span>
+                    Smart Phone
+                  </td>
+                  <td>
+                    <div class="lh-1"><span class="text-primary fw-semibold">$399</span></div>
+                    <small class="text-muted">Fully Paid</small>
+                  </td>
+                  <td><span class="badge bg-label-success">Completed</span></td>
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn dropdown-toggle hide-arrow p-0"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-edit-alt me-1"></i> View Details</a
+                        >
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-trash me-1"></i> Buy Again</a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img
+                        src="{{asset('/img/icons/products/mi-tv.png')}}"
+                        alt="Xiaomi"
+                        height="32"
+                        width="32"
+                        class="me-2"
+                      />
+                      <div class="d-flex flex-column">
+                        <span class="lh-1 fw-semibold">Mi LED TV 4X</span>
+                        <small class="text-muted">Xiaomi</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge bg-label-danger rounded-pill badge-center p-3 me-2"
+                      ><i class="bx bx-tv bx-xs"></i
+                    ></span>
+                    Smart TV
+                  </td>
+                  <td>
+                    <div class="lh-1 text-muted"><span class="text-primary fw-semibold">$349</span>/2499</div>
+                    <small class="text-muted">Partially Paid</small>
+                  </td>
+                  <td><span class="badge bg-label-primary">Confirmed</span></td>
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn dropdown-toggle hide-arrow p-0"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-edit-alt me-1"></i> View Details</a
+                        >
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-trash me-1"></i> Buy Again</a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img
+                        src="{{asset('/img/icons/products/logitech-mx.png')}}"
+                        alt="Logitech"
+                        height="32"
+                        width="32"
+                        class="me-2"
+                      />
+                      <div class="d-flex flex-column">
+                        <span class="lh-1 fw-semibold">Logitech MX</span>
+                        <small class="text-muted">Logitech</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge bg-label-warning rounded-pill badge-center p-3 me-2"
+                      ><i class="bx bx-mouse bx-xs"></i
+                    ></span>
+                    Mouse
+                  </td>
+                  <td>
+                    <div class="lh-1"><span class="text-primary fw-semibold">$89</span></div>
+                    <small class="text-muted">Fully Paid</small>
+                  </td>
+                  <td><span class="badge bg-label-primary">Completed</span></td>
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn dropdown-toggle hide-arrow p-0"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-edit-alt me-1"></i> View Details</a
+                        >
+                        <a class="dropdown-item" href="javascript:void(0);"
+                          ><i class="bx bx-trash me-1"></i> Buy Again</a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+</div>
     <!-- Project table -->
-    <div class="card mb-4">
+    {{-- <div class="card mb-4">
       <h5 class="card-header">User's Projects List</h5>
       <div class="table-responsive mb-3">
         <table class="table datatable-project border-top">
           <thead>
             <tr>
-              <th></th>
-              <th>Project</th>
-              <th class="text-nowrap">Total Task</th>
-              <th>Progress</th>
-              <th>Hours</th>
+              <th>#</th>
+              <th>Product</th>
+              <th class="text-nowrap"> Price</th>
+              <th>Proposals</th>
+              <th>status</th>
             </tr>
           </thead>
           <tbody>
-              <td></td>
-              <td>lorem</td>
-              <td>lorem</td>
-              <td>lorem</td>
-              <td>lorem</td>
+              @for($i=0;$i<10;$i++)
+              <tr>
+              <td>{{$i}}</td>
+              <td>Product {{$i}}</td>
+              <td>5$</td>
+              <td>1{{$i}}</td>
+              <td >
+                <span class="badge bg-label-success mt-2">
+                    active
+                </span>
+                </td>
+              </tr>
+              @endfor
           </tbody>
         </table>
       </div>
-    </div>
+    </div> --}}
     <!-- /Project table -->
 
     <!-- Activity Timeline -->
-    <div class="card mb-4">
+    {{-- <div class="card mb-4">
       <h5 class="card-header">User Activity Timeline</h5>
       <div class="card-body">
         <ul class="timeline">
@@ -219,6 +583,6 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> --}}
     <!-- /Activity Timeline -->
 @endsection

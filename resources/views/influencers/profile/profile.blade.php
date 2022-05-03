@@ -153,26 +153,6 @@
                         <form id="editUserForm" class="row g-3" action="{{route('influencers.updateProfile')}}" method="POST"  enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
-                          {{-- <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditUserFirstName">First Name</label>
-                            <input
-                              type="text"
-                              id="modalEditUserFirstName"
-                              name="modalEditUserFirstName"
-                              class="form-control"
-                              placeholder="John"
-                            />
-                          </div>
-                          <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditUserLastName">Last Name</label>
-                            <input
-                              type="text"
-                              id="modalEditUserLastName"
-                              name="modalEditUserLastName"
-                              class="form-control"
-                              placeholder="Doe"
-                            />
-                          </div> --}}
                           <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserName">Username</label>
                             <input
@@ -201,20 +181,7 @@
                               value="{{old('email',isset( auth()->user()->email) ?  auth()->user()->email :'') ?? NULL}}"
                             />
                           </div>
-                          {{-- <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditUserStatus">Status</label>
-                            <select
-                              id="modalEditUserStatus"
-                              name="modalEditUserStatus"
-                              class="form-select"
-                              aria-label="Default select example"
-                            >
-                              <option selected>Status</option>
-                              <option value="1">Active</option>
-                              <option value="2">Inactive</option>
-                              <option value="3">Suspended</option>
-                            </select>
-                          </div> --}}
+
 
                           <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserPhone">Phone Number</label>
