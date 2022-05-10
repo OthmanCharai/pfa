@@ -17,6 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // dd('ok');
         $categories=Category::get();
         $products=Product::get();
         // dd('ok');
@@ -24,6 +25,16 @@ class ProductController extends Controller
             'categories'=>$categories,
             'products'=>$products
         ]);
+    }
+
+    public function productList(){
+        $products=Product::get();
+        // dd($products);
+
+        return view('guest.products',[
+            'products'=>$products
+        ]);
+
     }
 
 

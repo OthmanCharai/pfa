@@ -31,9 +31,7 @@ Route::prefix('guest')->name('guest.')->group(function () {
     Route::get('/faqs',function(){
         return view('guest.faqs');
     })->name('faqs');
-    Route::get('/products',function(){
-        return view('guest.products');
-    })->name('products');
+    Route::get('/products',[App\Http\Controllers\ProductController::class, 'productList'])->name('products');
 
 });
 
