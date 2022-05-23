@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,12 +17,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('guest.home');
+
+    return view('guest.home',[
+        "products"=>Product::all(),
+        'categories'=>Category::all(),
+    ]);
 });
 
 Route::prefix('guest')->name('guest.')->group(function () {
     Route::get('/home',function(){
-        return view('guest.home');
+        return view('guest.home',[
+            "products"=>Product::all(),
+            'categories'=>Category::all(),
+        ]);
     })->name('home');
     Route::get('/about',function(){
         return view('guest.about');
@@ -38,6 +47,8 @@ Route::prefix('guest')->name('guest.')->group(function () {
 Route::prefix('influencers')->name('influencers.')->group(function(){
     Route::put('/updateProfile',[App\Http\Controllers\InfluencerController::class, 'updateProfile'])->name('updateProfile');
     // Route::put('/updatePassword',[App\Http\Controllers\InfluencerController::class, 'updatePassword'])->name('updatePassword');
+    Route::get('favorites/{id}',"ProductController@add_to_favorite")->name('favorites')->middleware('auth');
+    Route::get('application/{id}',"ProductController@applie_for_product")->name('application')->middleware('auth');
 
     Route::get('dashbord',function(){
         return view('influencers.dashbord');
@@ -47,10 +58,9 @@ Route::prefix('influencers')->name('influencers.')->group(function(){
     }
     )->name('products');
 
+
     Route::prefix('profile')->name('profile.')->group(function(){
-            Route::get('account',function(){
-                return view('influencers.profile.account');
-            })->name('account');
+            Route::get('account',"ProductController@get_favorites")->name('account');
             Route::get('security',function(){
                 return view('influencers.profile.security');
             })->name('security');
@@ -60,6 +70,7 @@ Route::prefix('influencers')->name('influencers.')->group(function(){
 
         }
     );
+
 });
 /**
  *  entreprise route
@@ -78,10 +89,9 @@ Route::prefix('entreprises')->name('entreprises.')->group(function(){
         })->name('security');
         Route::resource('/products', App\Http\Controllers\ProductController::class);
 
-        Route::get('applied_products',function(){
-            return view('entreprises.profile.applied_products');
-        })->name('applied_products');
-
+        Route::get('applied_products',[App\Http\Controllers\EntrepriseController::class, 'get_applied_products'])->name('applied_products');
+        Route::get('approve_application/{id}',[App\Http\Controllers\EntrepriseController::class, 'approve_application'])->name('approve_application');
+        Route::get('decline_application/{id}',[App\Http\Controllers\EntrepriseController::class, 'decline_application'])->name('decline_application');
 
 
         }

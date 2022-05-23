@@ -24,4 +24,16 @@ class Product extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+    public function commands(){
+
+        return $this->belongsToMany(User::class)->withPivot('status')->withPivot('id')->withTimestamps();
+    }
+
+    public function liked(){
+        return $this->belongsToMany(User::class,'favorites','product_id','user_id')->withTimestamps();
+    }
+
+    /* local scope  */
+
+
 }

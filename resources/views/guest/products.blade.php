@@ -34,6 +34,11 @@
     <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         <div class="container">
             <h1 class="page-title">Boxed No Sidebar<span>Shop</span></h1>
+            @if(session()->has('status'))
+                <div class="alert alert-success">
+                    {{ session()->get('status') }}
+                </div>
+            @endif
         </div><!-- End .container -->
     </div><!-- End .page-header -->
     <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
@@ -76,44 +81,7 @@
 
             <div class="products">
                 <div class="row">
-                    <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                        <div class="product">
-                            <figure class="product-media">
-                                <span class="product-label label-new">New</span>
-                                <a href="product.html">
-                                    <img src="{{asset('temp2/images/products/product-1.jpg')}}" alt="Product image" class="product-image">
-                                </a>
 
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                </div><!-- End .product-action -->
-
-                                <div class="product-action action-icon-top">
-                                    <a href="#" class="btn-product btn-cart"><span>publish</span></a>
-                                    <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                    {{-- <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a> --}}
-                                </div><!-- End .product-action -->
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Women</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">Nunc dignissim risus</a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    $50.00
-                                </div><!-- End .product-price -->
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 0 Reviews )</span>
-                                </div><!-- End .rating-container -->
-
-
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-                    </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
                     @foreach ($products as $product)
 
                     <div class="col-6 col-md-4 col-lg-4 col-xl-3">
@@ -125,16 +93,55 @@
                                 </a>
 
                                 <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                    <a href="{{ route('influencers.favorites',$product->id) }}" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
                                 </div><!-- End .product-action -->
 
                                 <div class="product-action action-icon-top">
-                                    <a href="#" class="btn-product btn-cart"><span>publish</span></a>
-                                    <a href="{{$product->link}}" target="_blank" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
+                                    <a href="{{ route('influencers.application',$product->id) }}" class="btn-product btn-cart"><span>publish</span></a>
+                                    <a href="#signin-modal{{ $product->id }}" data-toggle="modal" class="btn-product " title="Quick view"><span>quick view</span></a>
                                     {{-- <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a> --}}
                                 </div><!-- End .product-action -->
                             </figure><!-- End .product-media -->
+ <!-- Sign in / Register Modal -->
+ <div class="modal fade" id="signin-modal{{ $product->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
 
+                <div class="form-box">
+                    <div class="form-tab">
+
+                        <div class="tab-content" >
+                                <div class="row">
+                                    <div class="col-md-8 mt-5">
+                                        <img   src="{{asset("storage/".$product->image)}}" alt="Product image" class="product-image">
+                                        <br>
+                                        <p>{{ $product->description }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>Name : {{ $product->name }}</p>
+                                        <br>
+                                        <p>Category : {{ $product->category->name }}</p>
+                                        <br>
+                                        <p>Price :{{ $product->price }}</p>
+                                        <br>
+                                        <p> Publishing Price : {{ $product->publishing_price }}</p>
+
+                                    </div>
+                                </div>
+
+
+
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
                             <div class="product-body">
                                 <div class="product-cat">
                                     <a href="#">{{$product->category->name}}</a>

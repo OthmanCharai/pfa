@@ -71,34 +71,79 @@
 
     <!-- Page JS -->
     <script src="{{asset('js/modal-edit-user.js')}}"></script>
-    <script src="{{asset('js/app-user-view.js')}}"></script>
-    <script src="{{asset('js/app-user-view-account.js')}}"></script>
+    {{-- <script src="{{asset('js/app-user-view.js')}}"></script>
+    <script src="{{asset('js/app-user-view-account.js')}}"></script> --}}
 @endsection
 @section('profileContent')
     <!-- Project table -->
     <div class="card mb-4">
-      <h5 class="card-header">User's Projects List</h5>
+      <h5 class="card-header">Applied Products</h5>
       <div class="table-responsive mb-3">
         <table class="table datatable-project border-top">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Project</th>
-              <th class="text-nowrap">Total Task</th>
-              <th>Progress</th>
-              <th>Hours</th>
-            </tr>
-          </thead>
+            <thead>
+                <tr>
+                  <th></th>
+                  <th>Product</th>
+                  <th class="text-nowrap">Category</th>
+                  <th>Status</th>
+                  <th>Inflienceur</th>
+                </tr>
+              </thead>
           <tbody>
-              @for ($i=0;$i<15;$i++)
+            @foreach($products as $product)
+            @foreach ($product->commands as $command)
             <tr>
-              <td></td>
-              <td>lorem</td>
-              <td>lorem</td>
-              <td>lorem</td>
-              <td>lorem</td>
-            </tr>
-              @endfor
+              <td>
+                {{$product->id}}
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img
+                    src="{{asset("storage/".$product->image)}}"
+                    alt=""
+                    height="32"
+                    width="32"
+                    class="me-2"
+                  />
+                  <div class="d-flex flex-column">
+                    <span class="lh-1 fw-semibold">{{$product->name}}</span>
+                  </div>
+                </div>
+              </td>
+
+              <td>{{ $product->category->name }}</td>
+
+              <td>
+                  @if($command->pivot->status==0)
+                 <a class="btn btn-danger" href="{{ route('entreprises.profile.approve_application',$command->pivot->id) }}">
+                     inactive
+
+                 </a>
+
+                  @else
+                  <a class=" btn btn-success" href="{{ route('entreprises.profile.decline_application',$command->pivot->id) }}">
+                      active
+
+                  </a>
+
+                  @endif
+
+              </td>
+
+
+            <td>
+
+                <a href="{{ $command->influencer->link}}">
+
+                    {{ $product->commands[0]->name }}
+                </a>
+              </td>
+          </tr>
+
+            @endforeach
+
+            @endforeach
+
           </tbody>
         </table>
       </div>

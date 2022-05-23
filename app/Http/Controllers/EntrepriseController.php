@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commande;
 use App\Models\Entreprise;
+use App\Models\Influencer;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EntrepriseController extends Controller
 {
@@ -26,4 +30,52 @@ class EntrepriseController extends Controller
         // dd($request->hasFile('avatar'));
         return redirect()->back();
     }
+
+    public function get_applied_products(){
+        $user=Auth::user();
+        if($user->role=="entreprise"){
+            $products=Product::where('user_id',$user->id)->get();
+            return view('entreprises.profile.applied_products',[
+                'products'=>$products,
+            ]);
+        }
+    }
+
+
+    public function approve_application($id){
+
+        $application=DB::table('product_user')->where('id',$id)->get();
+        $product=Product::where('id',$application[0]->product_id)->first();
+        $product->commands()->sync([
+            $application[0]->user_id => [
+                'status' => 1
+            ],
+        ]);
+        $candidate=Influencer::where('user_id',$application[0]->user_id)->first();
+        $candidate->proposals=$candidate->proposals+10;
+        $candidate->walet= $candidate->walet+$product->publishing_price;
+        $candidate->save();
+        $products=Product::where('user_id',Auth::user()->id)->get();
+        return view('entreprises.profile.applied_products',[
+            'products'=>$products,
+        ]);
+    }
+
+    public function decline_application($id){
+
+        $application=DB::table('product_user')->where('id',$id)->get();
+        $product=Product::where('id',$application[0]->product_id)->first();
+        $product->commands()->sync([
+            $application[0]->user_id => [
+                'status' => 0
+            ],
+        ]);
+      
+        $products=Product::where('user_id',Auth::user()->id)->get();
+        return view('entreprises.profile.applied_products',[
+            'products'=>$products,
+        ]);
+    }
+
+
 }

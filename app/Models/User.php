@@ -64,4 +64,11 @@ class User extends Authenticatable
     public function pack(){
         return $this->hasOne(Pack::class);
     }
+
+    public function orders(){
+        return $this->belongsToMany(Product::class)->withPivot('status')->withPivot('id')->withTimestamps();
+    }
+    public function favorites(){
+        return $this->belongsToMany(Product::class,'favorites','user_id','product_id')->withTimestamps();
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -121,5 +122,40 @@ class ProductController extends Controller
         Storage::delete($product->image);
         $product->delete();
         return redirect()->back();
+    }
+    public function add_to_favorite(Request $request,$id){
+
+        $user=Auth::user();
+        $product=Product::find($id);
+        $user=User::find($user->id);
+
+        $user->favorites()->syncwithoutdetaching([$id]);
+        $request->session()->flash('status',"Product was added to favorite with success");
+        return redirect()->route('guest.products');
+        /* if($user->role=='influencer'){
+        } */
+
+    }
+
+    public function applie_for_product(Request $request,$id){
+
+        $user=Auth::user();
+        $product=Product::find($id);
+        $user=User::find($user->id);
+
+        $user->orders()->syncwithoutdetaching([$id]);
+        $request->session()->flash('status',"Application was added  with success");
+        return redirect()->route('guest.products');
+        /* if($user->role=='influencer'){
+        } */
+
+    }
+
+    public function get_favorites(){
+        $user=Auth::user();
+        $products=Product::whereHas('liked')->get();
+        return view('influencers.profile.account',[
+            'products'=>$products
+        ]);
     }
 }
